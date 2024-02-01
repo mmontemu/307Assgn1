@@ -6,6 +6,20 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
   
     function removeOneCharacter(index) {
+      removeUser(characters[index])
+        .then((res) => {
+          if (res.status != 204 )
+          throw new Error("No Data!");})
+        .then(() => 
+          {const updated = characters.filter((character, i) => {
+            return i !== index;
+          });
+          setCharacters(updated);})
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+    function removeOneCharacter(index) {
       const updated = characters.filter((character, i) => {
         return i !== index;
       });
@@ -40,10 +54,22 @@ function MyApp() {
       return promise;
     }
 
+    function removeUser(person) {
+      const promise = fetch("Http://localhost:8000/users/" + person.id, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+  
+      return promise;
+    }
+
     useEffect(() => {
       fetchUsers()
         .then((res) => res.json())
         .then((json) => setCharacters(json["users_list"]))
+        .then(response => response.json())
         .catch((error) => { console.log(error); });
     }, [] );
 

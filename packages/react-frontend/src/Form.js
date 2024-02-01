@@ -15,7 +15,7 @@ function Form(props) {
   }
 
   function submitForm() {
-    person.id = Math.random().toString()
+    person.id = Math.random().toString();
     props.handleSubmit(person);
     setPerson({id: "", name: "", job: "" });
   }
