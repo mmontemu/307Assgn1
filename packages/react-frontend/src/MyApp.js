@@ -13,11 +13,14 @@ function MyApp() {
     }
     function updateList(person) { 
       postUser(person)
+        .then((res) => {
+          if (res.status != 201 )
+          throw new Error("No Data!");})
         .then(() => setCharacters([...characters, person]))
         .catch((error) => {
           console.log(error);
         })
-  }
+    }
 
     
     function fetchUsers() {

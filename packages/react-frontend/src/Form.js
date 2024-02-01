@@ -3,19 +3,21 @@ import React, { useState } from "react";
 
 function Form(props) {
   const [person, setPerson] = useState({
+    id: "",
     name: "",
     job: ""
   });
   function handleChange(event) {
-    const { name, value } = event.target;
+    const {id, name, value } = event.target;
     if (name === "job")
-      setPerson({ name: person["name"], job: value });
-    else setPerson({ name: value, job: person["job"] });
+      setPerson({id: value, name: person["name"], job: value });
+    else setPerson({id: value, name: value, job: person["job"] });
   }
 
   function submitForm() {
+    person.id = Math.random().toString()
     props.handleSubmit(person);
-    setPerson({ name: "", job: "" });
+    setPerson({id: "", name: "", job: "" });
   }
 
   return (
