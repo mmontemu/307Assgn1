@@ -6,24 +6,17 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
   
     function removeOneCharacter(index) {
+        const updated = characters.filter((character, i) => {
+            return i !== index;
+          });
+        setCharacters(updated);
       removeUser(characters[index])
         .then((res) => {
           if (res.status != 204 )
           throw new Error("No Data!");})
-        .then(() => 
-          {const updated = characters.filter((character, i) => {
-            return i !== index;
-          });
-          setCharacters(updated);})
         .catch((error) => {
           console.log(error);
         })
-    }
-    function removeOneCharacter(index) {
-      const updated = characters.filter((character, i) => {
-        return i !== index;
-      });
-      setCharacters(updated);
     }
     function updateList(person) { 
       postUser(person)
